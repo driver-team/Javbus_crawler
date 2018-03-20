@@ -28,11 +28,8 @@ def join_db(url,is_uncensored):
 
     for dict_jav_data, detail_url in get_dict(url):
         if controler.check_url_not_in_table(url):
-            try:
-                controler.write_data(dict_jav_data, is_uncensored)
-            except sqlite3.IntegrityError as e:
-                print e
-                continue
+
+            controler.write_data(dict_jav_data, is_uncensored)
             print("Crawled %s" % detail_url)
         else:
             print("it has updated over...window will be closed after 60s")
