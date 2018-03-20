@@ -5,6 +5,7 @@ import controler
 import downloader
 import pageparser
 import time
+import sqlite3
 
 def get_dict(url):
     """get the dict of the detail page and yield the dict"""
@@ -27,7 +28,11 @@ def join_db(url,is_uncensored):
 
     for dict_jav_data, detail_url in get_dict(url):
         if controler.check_url_not_in_table(url):
-            controler.write_data(dict_jav_data, is_uncensored)
+            try:
+                controler.write_data(dict_jav_data, is_uncensored)
+            except sqlite3.IntegrityError as e:
+                print e
+                continue
             print("Crawled %s" % detail_url)
         else:
             print("it has updated over...window will be closed after 60s")
