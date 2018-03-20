@@ -54,37 +54,37 @@ def parser_content(html):
 
     code_name_doc = soup.find('span', text="識別碼:")
     code_name = code_name_doc.parent.contents[2].text if code_name_doc else ''
-    categories['識別碼'] = code_name
+    categories['code_name'] = code_name
     #code_name = soup.find('span', text="識別碼:").parent.contents[2].text if soup.find('span', text="識別碼:") else ''
 
     date_issue_doc = soup.find('span', text="發行日期:")
     date_issue = date_issue_doc.parent.contents[1].strip() if date_issue_doc else ''
-    categories['發行日期'] = date_issue
+    categories['release_date'] = date_issue
     #date_issue = soup.find('span', text="發行日期:").parent.contents[1].strip() if soup.find('span', text="發行日期:") else ''
 
     duration_doc = soup.find('span', text="長度:")
     duration = duration_doc.parent.contents[1].strip() if duration_doc else ''
-    categories['長度'] = duration
+    categories['duration'] = duration
     #duration = soup.find('span', text="長度:").parent.contents[1].strip() if soup.find('span', text="長度:") else ''
 
     director_doc = soup.find('span', text="導演:")
     director = director_doc.parent.contents[2].text if director_doc else ''
-    categories['導演'] = director
+    categories['director'] = director
     #director = soup.find('span', text="導演:").parent.contents[2].text if soup.find('span', text="導演:") else ''
 
     manufacturer_doc = soup.find('span', text="製作商:")
     manufacturer = manufacturer_doc.parent.contents[2].text if manufacturer_doc else ''
-    categories['製作商'] = manufacturer
+    categories['manufacturer'] = manufacturer
     #manufacturer = soup.find('span', text="製作商:").parent.contents[2].text if soup.find('span', text="製作商:") else ''
 
     publisher_doc = soup.find('span', text="發行商:")
     publisher = publisher_doc.parent.contents[2].text if publisher_doc else ''
-    categories['發行商'] = publisher
+    categories['publisher'] = publisher
     #publisher = soup.find('span', text="發行商:").parent.contents[2].text if soup.find('span', text="發行商:") else ''
 
     series_doc = soup.find('span', text="系列:")
     series = series_doc.parent.contents[2].text if series_doc else ''
-    categories['系列'] = series
+    categories['series'] = series
     #series = soup.find('span', text="系列:").parent.contents[2].text if soup.find('span', text="系列:") else ''
 
     genre_doc = soup.find('p', text="類別:")
@@ -93,7 +93,7 @@ def parser_content(html):
     genre_text = ''
     for tex in genre:
         genre_text += '%s   ' % tex 
-    categories['類別'] = genre_text
+    categories['genre'] = genre_text
 
     actor_doc = soup.select('span[onmouseover^="hoverdiv"]')
     actor = (i.text.strip() for i in actor_doc) if actor_doc else ''
@@ -101,7 +101,7 @@ def parser_content(html):
     actor_text = ''
     for tex in actor:
         actor_text += '%s   ' % tex 
-    categories['演員'] = actor_text
+    categories['actor'] = actor_text
     
     #网址加入字典
     url = soup.select('link[hreflang="zh"]')[0]['href']
@@ -110,7 +110,7 @@ def parser_content(html):
     #将磁力链接加入字典
     magnet_html = downloader.get_html(_get_cili_url(soup), Referer_url=url)
     magnet = _parser_magnet(magnet_html)
-    categories['磁力链接'] = magnet
+    categories['magnet'] = magnet
 
     return categories
 

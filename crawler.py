@@ -55,5 +55,5 @@ def main(entrance):
 
 
 if __name__ == '__main__':
-    main('https://www.javbus5.com')
-    main('https://www.javbus5.com/uncensored')
+    main('https://www.javbus.com')
+    main('https://www.javbus.com/uncensored')
