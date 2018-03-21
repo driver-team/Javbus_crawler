@@ -57,13 +57,13 @@ def main(entrance):
     join_db(entrance, is_uncensored)
 
     entrance_html = downloader.get_html(entrance)
-    next_page_url = pageparser.get_next_page_url(entrance, entrance_html)
+    next_page_url = pageparser.get_next_page_url(entrance_html)
     while True:
         if next_page_url:
             join_db(next_page_url,is_uncensored)
         next_page_html = downloader.get_html(next_page_url)
         print 'next page url:{}'.format(next_page_url)
-        next_page_url = pageparser.get_next_page_url(entrance, next_page_html)
+        next_page_url = pageparser.get_next_page_url(next_page_html)
         if next_page_url == None:
             break
 

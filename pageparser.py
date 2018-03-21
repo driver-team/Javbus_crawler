@@ -24,15 +24,15 @@ def _parser_magnet(html):
         magnet += td.a['href'] + '\n'
     return magnet
 
-def get_next_page_url(entrance, html):
-    """get_next_page_url(entrance, html),return the url of next page if exist"""
+def get_next_page_url(html):
+    """get_next_page_url(html),return the url of next page if exist"""
     print("done the page.......")
     soup = BeautifulSoup(html, "html.parser")
     next_page = soup.select('a[id="next"]')
     if next_page:
-        next_page_link = next_page[0]['href'].split('/')[-2:]
-        next_page_link = '/'+'/'.join(next_page_link)
-        next_page_url = entrance + next_page_link
+        next_page_link = next_page[0]['href']
+        # next_page_link = '/'+'/'.join(next_page_link)
+        next_page_url = 'https://www.javbus.com' + next_page_link
         return next_page_url
     return None
 
