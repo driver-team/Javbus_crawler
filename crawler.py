@@ -9,11 +9,15 @@ import sqlite3
 import string
 import os
 
+finish_list=['62','5g','59','57','52','4y','4r']
 
 def get_genre(url):
     genre_html = downloader.get_html(url)
     for genre_url in pageparser.parser_genreurl(genre_html):
+        if genre_url.split('/')[-1] in finish_list:
+            continue
         main(genre_url)
+        print 'finish genre_url:{}'.format(genre_url)
         
         
 
@@ -55,13 +59,16 @@ def main(entrance):
     #无码为1，有码为0
     is_uncensored = 1 if 'uncensored' in entrance else 0
     join_db(entrance, is_uncensored)
+    print "entrance:{}".format(entrance)
 
     entrance_html = downloader.get_html(entrance)
     next_page_url = pageparser.get_next_page_url(entrance_html)
     while True:
         if next_page_url:
             join_db(next_page_url,is_uncensored)
-        next_page_html = downloader.get_html(next_page_url)
+        if next_page_url == None:
+            break
+        next_page_html = downloader.get_html(next_page_url) #
         print 'next page url:{}'.format(next_page_url)
         next_page_url = pageparser.get_next_page_url(next_page_html)
         if next_page_url == None:
