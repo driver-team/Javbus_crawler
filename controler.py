@@ -16,6 +16,7 @@ def create_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS JAVBUS_DATA(
             URL       TEXT PRIMARY KEY,
+            cover_image TEXT,
             code_name    TEXT,
             release_date  TEXT,
             duration      TEXT,
@@ -39,13 +40,13 @@ def write_data(dict_jav, uncensored):
     conn = sqlite3.connect("javbus.sqlite3.db")
     cursor = conn.cursor()
     #对数据解码为unicode
-    insert_data = map(_decode_utf8, (dict_jav['URL'], dict_jav['code_name'], dict_jav['release_date'], dict_jav['duration'], dict_jav['director'], dict_jav['manufacturer'], dict_jav['publisher'], dict_jav['series'], dict_jav['actor'], dict_jav['genre'], dict_jav['magnet']))
+    insert_data = map(_decode_utf8, (dict_jav['URL'], dict_jav['cover_image'],dict_jav['code_name'], dict_jav['release_date'], dict_jav['duration'], dict_jav['director'], dict_jav['manufacturer'], dict_jav['publisher'], dict_jav['series'], dict_jav['actor'], dict_jav['genre'], dict_jav['magnet']))
     insert_data.append(uncensored)
     #插入数据
     try:
         cursor.execute('''
-    INSERT INTO JAVBUS_DATA (URL, code_name, release_date, duration, director, manufacturer, publisher, series, actor, genre, magnet, uncensored)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO JAVBUS_DATA (URL, cover_image,code_name, release_date, duration, director, manufacturer, publisher, series, actor, genre, magnet, uncensored)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ''', insert_data)
     except sqlite3.IntegrityError as e:
         print e

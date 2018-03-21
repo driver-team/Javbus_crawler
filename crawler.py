@@ -6,6 +6,7 @@ import downloader
 import pageparser
 import time
 import sqlite3
+import string
 
 def get_dict(url):
     """get the dict of the detail page and yield the dict"""
@@ -40,6 +41,7 @@ def join_db(url,is_uncensored):
 
 def main(entrance):
     #创建数据表
+
     controler.create_db()
     #无码为1，有码为0
     is_uncensored = 1 if 'uncensored' in entrance else 0
@@ -58,5 +60,9 @@ def main(entrance):
 
 
 if __name__ == '__main__':
-    main('https://www.javbus.com')
-    main('https://www.javbus.com/uncensored')
+    # for x in string.lowercase:
+    #      main('https://www.javbus.com/genre/{}'.format(x))
+    # for x in range(1,100):
+    #     main('https://www.javbus.com/genre/{}'.format(x))
+    main('https://www.javbus.com/')
+    # main('https://www.javbus.com/uncensored')

@@ -57,6 +57,10 @@ def parser_content(html):
     categories['code_name'] = code_name
     #code_name = soup.find('span', text="識別碼:").parent.contents[2].text if soup.find('span', text="識別碼:") else ''
 
+    cover_image_doc = soup.find('a', attrs={"class": "bigImage"})
+    cover_image = cover_image_doc.get('href') if cover_image_doc else ''
+    categories['cover_image'] = cover_image
+
     date_issue_doc = soup.find('span', text="發行日期:")
     date_issue = date_issue_doc.parent.contents[1].strip() if date_issue_doc else ''
     categories['release_date'] = date_issue
