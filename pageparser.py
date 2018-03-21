@@ -36,6 +36,11 @@ def get_next_page_url(entrance, html):
         return next_page_url
     return None
 
+def parser_genreurl(html):
+    
+    soup = BeautifulSoup(html,"html.parser")
+    for x in soup.select('a[class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-center"]'):
+        yield x['href']
 
 def parser_homeurl(html):
     """parser_homeurl(html),parser every url on every page and yield the url"""

@@ -7,6 +7,15 @@ import pageparser
 import time
 import sqlite3
 import string
+import os
+
+
+def get_genre(url):
+    genre_html = downloader.get_html(url)
+    for genre_url in pageparser.parser_genreurl(genre_html):
+        main(genre_url)
+        
+        
 
 def get_dict(url):
     """get the dict of the detail page and yield the dict"""
@@ -41,8 +50,8 @@ def join_db(url,is_uncensored):
 
 def main(entrance):
     #创建数据表
-
-    controler.create_db()
+    if not os.path.exists("javbus.sqlite3.db"):
+        controler.create_db()
     #无码为1，有码为0
     is_uncensored = 1 if 'uncensored' in entrance else 0
     join_db(entrance, is_uncensored)
@@ -64,5 +73,6 @@ if __name__ == '__main__':
     #      main('https://www.javbus.com/genre/{}'.format(x))
     # for x in range(1,100):
     #     main('https://www.javbus.com/genre/{}'.format(x))
-    main('https://www.javbus.com/')
+    # main('https://www.javbus.com/')
     # main('https://www.javbus.com/uncensored')
+    get_genre('https://www.javbus.com/genre/')
