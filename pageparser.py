@@ -3,11 +3,12 @@
 
 from bs4 import BeautifulSoup
 import downloader
+import time
 
 def _get_cili_url(soup):
     """get_cili(soup).get the ajax url and Referer url of request"""
 
-    ajax_get_cili_url = 'https://www.javbus5.com/ajax/uncledatoolsbyajax.php?lang=zh'
+    ajax_get_cili_url = 'https://www.javbus.com/ajax/uncledatoolsbyajax.php?lang=zh'
     ajax_data = soup.select('script')[8].text
     for l in ajax_data.split(';')[:-1]:
         ajax_get_cili_url += '&%s' % l[7:].replace("'","").replace(' ','')
@@ -117,6 +118,7 @@ def parser_content(html):
     categories['URL'] = url
 
     #将磁力链接加入字典
+    # time.sleep(5)
     magnet_html = downloader.get_html(_get_cili_url(soup), Referer_url=url)
     magnet = _parser_magnet(magnet_html)
     categories['magnet'] = magnet
