@@ -25,6 +25,17 @@ def _parser_magnet(html):
         magnet += td.a['href'] + '\n'
     return magnet
 
+def _another_parser_magnet(html):
+    magnet_dict={}
+    soup = BeautifulSoup(html,"html.parser")
+    for tr in soup.select('tr[style=" border-top:#DDDDDD solid 1px"]'):
+        m=[]
+        magnet= tr.a['href']
+        for x in tr.select('a[style="color:#333"]'):
+            m.append(x.text.strip())
+        magnet_dict[magnet]=m
+    return magnet
+
 def get_next_page_url(html):
     """get_next_page_url(html),return the url of next page if exist"""
     print("done the page.......")
@@ -119,8 +130,10 @@ def parser_content(html):
 
     #将磁力链接加入字典
     # time.sleep(5)
-    magnet_html = downloader.get_html(_get_cili_url(soup), Referer_url=url)
+    ajax_get_cili_url = _get_cili_url(soup)
+    magnet_html = downloader.get_html(ajax_get_cili_url, Referer_url=url)
     magnet = _parser_magnet(magnet_html)
+    categories['ajax_get_cili_url'] = ajax_get_cili_url
     categories['magnet'] = magnet
 
     return categories
