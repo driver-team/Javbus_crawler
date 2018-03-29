@@ -49,7 +49,7 @@ def get_next_page_url(html):
     return None
 
 def parser_genreurl(html):
-    
+
     soup = BeautifulSoup(html,"html.parser")
     for x in soup.select('a[class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-center"]'):
         yield x['href']
@@ -68,6 +68,10 @@ def parser_content(html):
     soup = BeautifulSoup(html, "html.parser")
 
     categories = {}
+
+    name_doc = soup.find('h3')
+    name = name_doc.text if name_doc else ''
+    categories['name'] = name
 
     code_name_doc = soup.find('span', text="識別碼:")
     code_name = code_name_doc.parent.contents[2].text if code_name_doc else ''
@@ -113,7 +117,7 @@ def parser_content(html):
     #genre =(i.text.strip() for i in soup.find('p', text="類別:").find_next('p').select('span')) if soup.find('p', text="類別:") else ''
     genre_text = ''
     for tex in genre:
-        genre_text += '%s   ' % tex 
+        genre_text += '%s   ' % tex
     categories['genre'] = genre_text
 
     actor_doc = soup.select('span[onmouseover^="hoverdiv"]')
@@ -121,9 +125,9 @@ def parser_content(html):
     #actor = (i.text.strip() for i in soup.select('span[onmouseover^="hoverdiv"]')) if soup.select('span[onmouseover^="hoverdiv"]') else ''
     actor_text = ''
     for tex in actor:
-        actor_text += '%s   ' % tex 
+        actor_text += '%s   ' % tex
     categories['actor'] = actor_text
-    
+
     #网址加入字典
     url = soup.select('link[hreflang="zh"]')[0]['href']
     categories['URL'] = url
@@ -137,5 +141,3 @@ def parser_content(html):
     categories['magnet'] = magnet
 
     return categories
-
-
