@@ -66,5 +66,5 @@ def check_url_not_in_table(url):
     cursor.close()
     conn.close()
     if check:
-        return True
-    return False
+        return False
+    return True
