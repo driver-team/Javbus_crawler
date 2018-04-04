@@ -9,7 +9,7 @@ import sqlite3
 import string
 import os
 
-# 247/274
+# 250/274
 finish_list = [
     '62', '5g', '59', '57', '52', '4y', '4r', '4e', '4d', '4a', '49', '44', '41',
     '40', '3x', '3w', '3v', '3t', '3r', '3g', '3e', '3d', '3c', '3b', '37', '35',
@@ -29,7 +29,10 @@ finish_list = [
     '2u', '25', '1q', '1m', '1l', '1h','1b', '1a', '14', 'q', 'd', '6', '3', '5m',
     '5y', '63', '60', '5z', '5t', '5s', '5q', '5o', '5n','5j', '5e', '5a', '54', '53',
     '4v','4u','4q','4o','4m','48','43','3u','3j','33','31','2p','2n','2c','1g',
-    '16','s','o']
+    '16','s','o','g','f','2','hd','sub','2j','4g','66','69','6a','70','71','72',
+    '73','74','75','76','7k','7l','7m','7n','7o','7p','7q','7r','7s','7x']
+
+undo=['4o']
 
 
 def get_genre(url):
@@ -102,4 +105,5 @@ if __name__ == '__main__':
     #     main('https://www.javbus.com/genre/{}'.format(x))
     # main('https://www.javbus.com/')
     # main('https://www.javbus.com/uncensored')
-    get_genre('https://www.javbus.com/genre/')
+    # get_genre('https://www.javbus.com/genre/')
+    main('https://www.javbus.com/genre/4o')
